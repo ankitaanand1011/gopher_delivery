@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@drawable/frame_bg"
+                >
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="This is the first Text"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/description"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="From general trade to highly specialized information, find the directories you'll reach for time and again for the most authoritative title information. Our printed directories have been the staple  "
+           />
+        <LinearLayout
+            android:layout_below="@id/description"
+             android:id="@+id/address_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/location_img"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/location32"/>
+
+            <TextView
+                android:id="@+id/addess"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content"
+                android:text="This is the first Product "
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_below="@id/address_line"
+             android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/view_details"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="View Details"
+                android:textColor="#ffffff"
+                android:padding="10dp"
+                android:background="@drawable/details_button"/>
+
+            <TextView
+                android:id="@+id/navigation"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Navigation"
+                android:background="@drawable/frame_bg"
+                  android:layout_marginLeft="20dp"
+                android:padding="10dp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

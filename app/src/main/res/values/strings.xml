@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Delivery Boy</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="username">User name /Gopher ID</string>
+    <string name="password">Password</string>
+    <string name="forgetpassword">Forget Password  ?</string>
+    <string name="delivery_boy_name">Delivery boy Name</string>
+    <string name="description">I use your solution in my application, but in my case I want that when keyboard appears, the buttons stay at the bottom of the screen (behind the keyboard) There is a sulution for that </string>
+    <string name="pickingLocation">Picking Location </string>
+    <string name="deliveryLocation">Delivery Location </string>
+    <string name="Instruction">Instruction</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string-array name="spinnerItems">
+        <item>Delivered</item>
+        <item>On the way</item>
+        <item>Not delivered</item>
+
+    </string-array>
+
+    <string name="loading">Loading…</string>
+</resources>
