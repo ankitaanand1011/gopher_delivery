@@ -36,7 +36,7 @@ public class LoginScreen extends AppCompatActivity {
     String TAG = "login";
 
     ImageView login_img;
-    TextView signup_tv,tv_f_password;
+    TextView tv_f_password;
     EditText email_edt, password_edt;
     GlobalClass globalClass;
     Shared_Preference prefrence;
@@ -100,6 +100,13 @@ public class LoginScreen extends AppCompatActivity {
 
 
 
+        tv_f_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginScreen.this,Forget_Password.class);
+                startActivity(intent);
+            }
+        });
 
 
     }

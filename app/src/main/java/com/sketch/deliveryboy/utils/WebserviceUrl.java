@@ -22,6 +22,7 @@ public class WebserviceUrl {
     public static String update_profile_details = SiteName +"update_profile_details";
     public static String job_accept = SiteName +"job_accept";
     public static String job_viewed = SiteName +"job_viewed";
+    public static String job_details = SiteName +"job_details";
 
     public static String logout = SiteName +"logout";
 

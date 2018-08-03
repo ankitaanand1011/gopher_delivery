@@ -8,25 +8,20 @@ import android.widget.ImageView;
 
 import com.sketch.deliveryboy.R;
 
-/**
- * Created by developer on 30/6/18.
- */
 
-public class userrating extends AppCompatActivity {
-    ImageView profileImg;
+public class Userrating extends AppCompatActivity {
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.userrating);
-    /*    profileImg=findViewById(R.id.profile);
 
-        profileImg.setOnClickListener(new View.OnClickListener() {
+        ImageView img_back = findViewById(R.id.img_back);
+        img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(userrating.this, ProfileScreen.class);
-                startActivity(intent);
+                finish();
             }
         });
-*/
     }
 }

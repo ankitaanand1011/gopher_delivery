@@ -1,5 +1,7 @@
 package com.sketch.deliveryboy.Fragment;
 
+
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,7 +21,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.sketch.deliveryboy.Adapter.AdapterAccepted;
+import com.sketch.deliveryboy.Adapter.AdapterAll;
 import com.sketch.deliveryboy.Adapter.AdapterViewed;
 import com.sketch.deliveryboy.R;
 import com.sketch.deliveryboy.utils.AppController;
@@ -31,23 +33,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+public class Viewed_Dashboard extends Fragment {
 
-public class Accepted extends Fragment {
-   
-    String TAG = "accepted";
-    ListView list_accepted;
-    AdapterAccepted adapterAccepted;
-    ArrayList<HashMap<String,String>> arr_order_accepted;
+    String TAG = "viewed";
+    ListView list_viewed;
+    AdapterViewed adapterViewed;
+    ArrayList<HashMap<String,String>> arr_order_viewed;
     GlobalClass globalClass;
+    ProgressDialog pd;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_accepted, container, false);
+        View view = inflater.inflate(R.layout.fragment_viewed, container, false);
 
         globalClass = (GlobalClass) getActivity().getApplicationContext();
-        arr_order_accepted = new ArrayList<>();
-        list_accepted = view.findViewById(R.id.list_accepted);
+
+        pd=new ProgressDialog(getActivity());
+        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        pd.setMessage(getResources().getString(R.string.loading));
+        arr_order_viewed = new ArrayList<>();
+        list_viewed = view.findViewById(R.id.list_viewed);
 
 
         product_type_url();
@@ -60,7 +66,7 @@ public class Accepted extends Fragment {
 
         String tag_string_req = "req_login";
 
-     //   globalClass.show_pd(getActivity());
+   pd.show();
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 WebserviceUrl.job_list, new Response.Listener<String>() {
@@ -87,7 +93,7 @@ public class Accepted extends Fragment {
 
                     if(status.equals("1")) {
 
-                        arr_order_accepted.clear();
+                        arr_order_viewed.clear();
 
                         JsonArray jsonArray =jobj.getAsJsonArray("viewed_list");
                         for(int i=0; i<jsonArray.size();i++) {
@@ -138,17 +144,17 @@ public class Accepted extends Fragment {
                             map_ser.put("job_status", job_status);
                             map_ser.put("order_placed_on", order_placed_on);
 
-                            arr_order_accepted.add(map_ser);
+                            arr_order_viewed.add(map_ser);
 
 
                         }
 
-                        Log.d(TAG, "onResponse: p_arr:  "+arr_order_accepted);
-                        adapterAccepted = new AdapterAccepted(getActivity(), arr_order_accepted);
-                        list_accepted.setAdapter(adapterAccepted);
-                        adapterAccepted.notifyDataSetChanged();
+                        Log.d(TAG, "onResponse: p_arr:  "+arr_order_viewed);
+                        adapterViewed = new AdapterViewed(getActivity(), arr_order_viewed);
+                        list_viewed.setAdapter(adapterViewed);
+                        adapterViewed.notifyDataSetChanged();
 
-                     //   globalClass.dismiss_pd(getActivity());
+                   pd.dismiss();
 
                     }
                 } catch (Exception e) {
@@ -162,7 +168,7 @@ public class Accepted extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "job_list Error: " + error.getMessage());
                 Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_LONG).show();
-              //  globalClass.dismiss_pd(getActivity());
+                pd.dismiss();
             }
         }) {
 

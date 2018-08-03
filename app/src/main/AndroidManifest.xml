@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:name=".utils.GlobalClass"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name="com.sketch.deliveryboy.Activity.SplashScreen"
             android:label="@string/app_name"
@@ -38,18 +38,38 @@
         <activity android:name=".Activity.JobDetailScreen"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
+
         <activity android:name=".Activity.DrawerActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
+
         <activity android:name=".Activity.JobStatus"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
+
         <activity android:name=".Activity.Delivered"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
-        <activity android:name=".Activity.userrating"
+
+        <activity android:name=".Activity.Userrating"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
+
+        <activity
+            android:name=".Activity.Forget_Password"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name=".Activity.Reset_Password"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name=".Activity.Product_Detail_Screen"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity
+            android:name=".Activity.Request_Money_Screen"
+            android:windowSoftInputMode="stateHidden" />
 
 
 

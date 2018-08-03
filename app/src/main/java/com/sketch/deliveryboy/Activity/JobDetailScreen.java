@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,14 @@ public class JobDetailScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.viewjob);
         Log.d(TAG, "onCreate: job_detail");
+
+        ImageView img_back = findViewById(R.id.img_back);
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         globalClass = (GlobalClass) getApplicationContext();
         accept=findViewById(R.id.accept);
@@ -122,6 +131,11 @@ public class JobDetailScreen extends AppCompatActivity {
                         Log.d(TAG, "onResponse:mydrtrtjj ");
                         Intent intent=new Intent(getApplicationContext(), JobStatus.class);
                         intent.putExtra("id",id);
+                        intent.putExtra("name",name);
+                        intent.putExtra("instruction",instruction);
+                        intent.putExtra("address",address);
+                        intent.putExtra("job_status",job_status);
+                        intent.putExtra("product_price",product_price);
                         startActivity(intent);
 
 

@@ -1,6 +1,7 @@
 package com.sketch.deliveryboy.Fragment;
 
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,7 +22,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sketch.deliveryboy.Adapter.AdapterAll;
-import com.sketch.deliveryboy.Adapter.AdapterViewed;
 import com.sketch.deliveryboy.R;
 import com.sketch.deliveryboy.utils.AppController;
 import com.sketch.deliveryboy.utils.GlobalClass;
@@ -31,36 +31,45 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import es.dmoral.toasty.Toasty;
 
-public class Viewed extends Fragment {
 
-    String TAG = "viewed";
-    ListView list_viewed;
-    AdapterViewed adapterViewed;
-    ArrayList<HashMap<String,String>> arr_order_viewed;
+public class All_Dashboard extends Fragment {
+    String TAG = "all";
+    ListView list_all;
+    AdapterAll adapterMessages;
+    ArrayList<HashMap<String,String>> arr_order_all;
     GlobalClass globalClass;
+    ProgressDialog pd;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_viewed, container, false);
+        View view = inflater.inflate(R.layout.fragment_all, container, false);
 
         globalClass = (GlobalClass) getActivity().getApplicationContext();
-        arr_order_viewed = new ArrayList<>();
-        list_viewed = view.findViewById(R.id.list_viewed);
+        pd=new ProgressDialog(getActivity());
+        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        pd.setMessage(getResources().getString(R.string.loading));
+
+
+
+        arr_order_all = new ArrayList<>();
+        list_all = view.findViewById(R.id.list_all);
 
 
         product_type_url();
+       // browseJob();
         return view;
     }
 
     private void product_type_url() {
         // Tag used to cancel the request
 
-
+        pd.show();
         String tag_string_req = "req_login";
 
-     //   globalClass.show_pd(getActivity());
+      //  globalClass.show_pd(getActivity());
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 WebserviceUrl.job_list, new Response.Listener<String>() {
@@ -86,10 +95,8 @@ public class Viewed extends Fragment {
                     Log.d("TAG", "message :\t" + message);
 
                     if(status.equals("1")) {
-
-                        arr_order_viewed.clear();
-
-                        JsonArray jsonArray =jobj.getAsJsonArray("viewed_list");
+                        arr_order_all.clear();
+                        JsonArray jsonArray =jobj.getAsJsonArray("current_list");
                         for(int i=0; i<jsonArray.size();i++) {
 
                             JsonObject jObject = (JsonObject) jsonArray.get(i);
@@ -138,17 +145,17 @@ public class Viewed extends Fragment {
                             map_ser.put("job_status", job_status);
                             map_ser.put("order_placed_on", order_placed_on);
 
-                            arr_order_viewed.add(map_ser);
+                            arr_order_all.add(map_ser);
 
 
                         }
 
-                        Log.d(TAG, "onResponse: p_arr:  "+arr_order_viewed);
-                        adapterViewed = new AdapterViewed(getActivity(), arr_order_viewed);
-                        list_viewed.setAdapter(adapterViewed);
-                        adapterViewed.notifyDataSetChanged();
+                        Log.d(TAG, "onResponse: p_arr:  "+arr_order_all);
+                        adapterMessages = new AdapterAll(getActivity(), arr_order_all);
+                        list_all.setAdapter(adapterMessages);
+                        adapterMessages.notifyDataSetChanged();
 
-                     //   globalClass.dismiss_pd(getActivity());
+                     pd.dismiss();
 
                     }
                 } catch (Exception e) {
@@ -162,7 +169,7 @@ public class Viewed extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "job_list Error: " + error.getMessage());
                 Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_LONG).show();
-             //   globalClass.dismiss_pd(getActivity());
+                pd.dismiss();
             }
         }) {
 
@@ -185,4 +192,7 @@ public class Viewed extends Fragment {
 
 
     }
+
+
+
 }

@@ -26,6 +26,11 @@ import android.widget.TextView;
 
 
 import com.sketch.deliveryboy.Fragment.Dashboard;
+import com.sketch.deliveryboy.Fragment.Frag_Cancel_Job;
+import com.sketch.deliveryboy.Fragment.Frag_Earning;
+import com.sketch.deliveryboy.Fragment.Frag_History;
+import com.sketch.deliveryboy.Fragment.Frag_JobList;
+import com.sketch.deliveryboy.Fragment.Frag_Support;
 import com.sketch.deliveryboy.R;
 import com.sketch.deliveryboy.utils.GlobalClass;
 import com.sketch.deliveryboy.utils.Shared_Preference;
@@ -265,26 +270,24 @@ public class DrawerActivity extends AppCompatActivity {
             case R.id.nav_order_his:
 
 
-                fragment = new Fragment();
+                fragment = new Frag_History();
                 FragmentManager fragmentManager1 = getSupportFragmentManager();
                 fragmentManager1.beginTransaction().replace(R.id.flContent, fragment).commit();
                 break;
             case R.id.nav_job_list:
 
-           /*     fragment = new JobDetailScreen();
+                fragment = new Frag_JobList();
                 FragmentManager fragmentManager2 = getSupportFragmentManager();
                 fragmentManager2.beginTransaction().replace(R.id.flContent, fragment).commit();
-*/
                 break;
 
             case R.id.nav_cancel_job:
 
 
 
-             /*   fragment = new JobDetailScreen();
+                fragment = new Frag_Cancel_Job();
                 FragmentManager fragmentManager3 = getSupportFragmentManager();
                 fragmentManager3.beginTransaction().replace(R.id.flContent, fragment).commit();
-*/
                 break;
 
            case R.id.nav_earning:
@@ -292,20 +295,18 @@ public class DrawerActivity extends AppCompatActivity {
 
 
 
-            /*    fragment = new JobDetailScreen();
+                fragment = new Frag_Earning();
                 FragmentManager fragmentManager4 = getSupportFragmentManager();
                 fragmentManager4.beginTransaction().replace(R.id.flContent, fragment).commit();
-*/
                 break;
 
            case R.id.nav_support:
 
 
 
-              /*  fragment = new JobDetailScreen();
+                fragment = new Frag_Support();
                 FragmentManager fragmentManager5 = getSupportFragmentManager();
                 fragmentManager5.beginTransaction().replace(R.id.flContent, fragment).commit();
-*/
                 break;
 
            case R.id.nav_Logout:

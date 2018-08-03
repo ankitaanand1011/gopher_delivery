@@ -48,15 +48,15 @@ public class Dashboard extends Fragment {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new All();
+                    return new All_Dashboard();
                 case 1:
-                    return new Viewed();
+                    return new Viewed_Dashboard();
                 case 2:
-                    return new Accepted();
+                    return new Accepted_Dashboard();
 
 
                 default:
-                    return new All();
+                    return new All_Dashboard();
             }
         }
 

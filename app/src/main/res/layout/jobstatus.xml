@@ -73,8 +73,9 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_marginTop="4dp"
-                        android:background="@drawable/customround"
-                        android:gravity="left"
+                        android:background="@mipmap/pickuplocation"
+                        android:gravity="start"
+
 
                         />
 
@@ -82,6 +83,7 @@
                         android:id="@+id/pin_code"
                         android:layout_width="100dp"
                         android:layout_height="1dip"
+                        android:backgroundTint="@color/dark_grey"
                         android:layout_marginTop="10dp"
                         android:background="@color/track_blue" />
 
@@ -107,9 +109,9 @@
                         android:layout_height="18dp"
                         android:layout_marginLeft="-3dp"
                         android:layout_marginTop="2dp"
-                        android:gravity="left"
-                        android:src="@mipmap/pickuplocation"
-                        android:tint="@color/track_blue" />
+                        android:gravity="start"
+                        android:src="@drawable/customround"
+                       />
 
 
                 </LinearLayout>
@@ -127,7 +129,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="status 1"
+                        android:text="Accepted"
                         android:gravity="left"
                         android:textSize="16dp"/>
                     <TextView
@@ -135,7 +137,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="status 2"
+                        android:text="Out for Delivery"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textSize="16dp"/>
@@ -144,7 +146,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="status 3"
+                        android:text="Delivered"
                         android:gravity="right"
                         android:textSize="16dp"/>
 
@@ -203,22 +205,43 @@
 
                 </LinearLayout>
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp">
+
                 <TextView
+                    android:id="@+id/tv_view_details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="View Map"
+                    android:text="View Details"
                     android:paddingLeft="30dp"
                     android:paddingRight="30dp"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:layout_marginBottom="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+
                     android:textColor="#ffffff"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="20dp"
+
                     android:background="@color/track_blue"
                     />
 
+                <TextView
+                    android:id="@+id/tv_request_for_money"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Request For Money"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/track_blue"
+                    />
 
+                </RelativeLayout>
 
             </LinearLayout>
             <LinearLayout
