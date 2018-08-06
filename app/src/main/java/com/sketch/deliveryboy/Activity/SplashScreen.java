@@ -1,8 +1,6 @@
 package com.sketch.deliveryboy.Activity;
 
-/**
- * Created by developer on 7/5/18.
- */
+
 
 import android.app.ProgressDialog;
 import android.content.Intent;

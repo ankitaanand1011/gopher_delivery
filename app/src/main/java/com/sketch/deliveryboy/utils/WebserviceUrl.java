@@ -12,7 +12,7 @@ public class WebserviceUrl {
 
     public static String login = SiteName +"login";
     public static String job_list = SiteName +"job_list";
-    public static String recent_orders = SiteName +"recent_orders";
+    public static String review = SiteName +"review";
     public static String product_type = SiteName +"product_type";
     public static String place_order = SiteName +"place_order";
     public static String confirm_otp = SiteName +"confirm_otp";

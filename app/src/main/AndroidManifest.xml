@@ -51,7 +51,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
 
-        <activity android:name=".Activity.Userrating"
+        <activity android:name=".Activity.UserRating"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
 
