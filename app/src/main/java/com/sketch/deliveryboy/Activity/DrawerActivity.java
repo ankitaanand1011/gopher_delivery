@@ -25,6 +25,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.sketch.deliveryboy.Fragment.Dashboard;
 import com.sketch.deliveryboy.Fragment.Frag_Cancel_Job;
 import com.sketch.deliveryboy.Fragment.Frag_Earning;
@@ -60,8 +66,8 @@ public class DrawerActivity extends AppCompatActivity {
     GlobalClass globalClass;
     Shared_Preference prefrence;
     ProgressDialog pd;
-   // ImageLoader loader;
-   // DisplayImageOptions defaultOptions;
+    ImageLoader loader;
+    DisplayImageOptions defaultOptions;
     ImageView imageView2;
 
     @Override
@@ -91,6 +97,20 @@ public class DrawerActivity extends AppCompatActivity {
         pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         pd.setMessage("Loading...");
 
+        defaultOptions = new DisplayImageOptions.Builder()
+                .cacheOnDisk(true).cacheInMemory(true)
+                //  .showImageOnLoading(R.mipmap.loading_black128px)
+                //  .showImageForEmptyUri(R.mipmap.no_image)
+                //  .showImageOnFail(R.mipmap.no_image)
+                //  .showImageOnFail(R.mipmap.img_failed)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .displayer(new FadeInBitmapDisplayer(300)).build();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+                .defaultDisplayImageOptions(defaultOptions)
+                .memoryCache(new WeakMemoryCache())
+                .diskCacheSize(100 * 1024 * 1024).build();
+        ImageLoader.getInstance().init(config);
+        loader = ImageLoader.getInstance();
 
 
 
@@ -127,7 +147,14 @@ public class DrawerActivity extends AppCompatActivity {
         View head=navigationView.getHeaderView(0);
         header_text = head.findViewById(R.id.header_text);
         imageView2 = head.findViewById(R.id.imageView2);
-      //  header_text.setText("Hi, "+globalClass.getFname());
+        header_text.setText("Hi, "+globalClass.getName());
+
+        if (globalClass.getProfil_pic().isEmpty()){
+
+            imageView2.setImageResource(R.mipmap.no_image);
+        }else{
+            loader.displayImage(globalClass.getProfil_pic(),imageView2 , defaultOptions);
+        }
 
 
 

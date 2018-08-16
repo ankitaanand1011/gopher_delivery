@@ -179,6 +179,7 @@ public class AdapterViewed extends BaseAdapter {
                         intent.putExtra("instruction",instruction);
                         intent.putExtra("address",address);
                         intent.putExtra("shop_address",shop_address);
+                        intent.putExtra("from","viewed_adapter");
 
                         context.startActivity(intent);
 

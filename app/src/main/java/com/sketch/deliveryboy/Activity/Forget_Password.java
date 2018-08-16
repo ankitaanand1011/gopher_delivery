@@ -91,7 +91,7 @@ public class Forget_Password extends AppCompatActivity {
     private void forgetpass_url(final String email) {
         // Tag used to cancel the request
         String tag_string_req = "req_login";
-
+        pd.show();
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 WebserviceUrl.forgetpass, new Response.Listener<String>() {
 
@@ -126,6 +126,9 @@ public class Forget_Password extends AppCompatActivity {
                         intent.putExtra("id",id);
                         startActivity(intent);
                         finish();
+
+                    }else{
+                        Toasty.error(Forget_Password.this, message, Toast.LENGTH_LONG, true).show();
                     }
                     pd.dismiss();
 
@@ -140,8 +143,8 @@ public class Forget_Password extends AppCompatActivity {
 
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "forgetpass Error: " + error.getMessage());
-                Toast.makeText(Forget_Password.this, error.getMessage(), Toast.LENGTH_LONG).show();
-
+            //    Toast.makeText(Forget_Password.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                pd.dismiss();
             }
         }) {
 

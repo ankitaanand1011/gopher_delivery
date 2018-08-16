@@ -1,5 +1,6 @@
 package com.sketch.deliveryboy.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -22,6 +23,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.sketch.deliveryboy.R;
 import com.sketch.deliveryboy.utils.AppController;
+import com.sketch.deliveryboy.utils.GPSTracker;
 import com.sketch.deliveryboy.utils.GlobalClass;
 import com.sketch.deliveryboy.utils.Shared_Preference;
 import com.sketch.deliveryboy.utils.WebserviceUrl;
@@ -42,6 +44,11 @@ public class LoginScreen extends AppCompatActivity {
     Shared_Preference prefrence;
     String device_id;
     String fcm_token;
+    ProgressDialog pd;
+
+    double latitude;
+    double longitude;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +58,11 @@ public class LoginScreen extends AppCompatActivity {
         globalClass = (GlobalClass) getApplicationContext();
         prefrence = new Shared_Preference(LoginScreen.this);
         prefrence.loadPrefrence();
+
+        pd=new ProgressDialog(LoginScreen.this);
+        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        pd.setMessage(getResources().getString(R.string.loading));
+
 
         device_id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
         Log.d(TAG, "device_id: " + device_id);
@@ -65,6 +77,12 @@ public class LoginScreen extends AppCompatActivity {
         login_img = findViewById(R.id.login_img);
         tv_f_password = findViewById(R.id.tv_f_password);
 
+        GPSTracker gps = new GPSTracker(this);
+        latitude = gps.getLatitude();
+        longitude= gps.getLongitude();
+
+        Log.d(TAG, "latitude: "+latitude);
+        Log.d(TAG, "longitude: "+longitude);
 
         login_img=findViewById(R.id.login_img);
         login_img.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +99,9 @@ public class LoginScreen extends AppCompatActivity {
                                 Log.d(TAG, "email: "+email);
                                 Log.d(TAG, "onClick: "+password);
 
-                                login_url(email, password);
+                                if(!String.valueOf(latitude).isEmpty()&& !String.valueOf(longitude).isEmpty() ) {
+                                    login_url(email, password);
+                                }
                             } else {
                                 Toasty.warning(LoginScreen.this, "Please enter password.", Toast.LENGTH_SHORT, true).show();
                             }
@@ -118,7 +138,7 @@ public class LoginScreen extends AppCompatActivity {
     private void login_url(final String email, final String password) {
         // Tag used to cancel the request
         String tag_string_req = "req_login";
-
+        pd.show();
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 WebserviceUrl.login, new Response.Listener<String>() {
 
@@ -142,32 +162,37 @@ public class LoginScreen extends AppCompatActivity {
                     Log.d("TAG", "status :\t" + status);
                     Log.d("TAG", "message :\t" + message);
 
-                    JsonObject jsonObject = jobj.getAsJsonObject("info");
+                    if(status.equals("1")) {
 
-                    String uid = jsonObject.get("uid").toString().replaceAll("\"", "");
-                    String gopher_id = jsonObject.get("gopher_id").toString().replaceAll("\"", "");
-                    String name = jsonObject.get("name").toString().replaceAll("\"", "");
-                    String mobile = jsonObject.get("mobile").toString().replaceAll("\"", "");
-                    String email = jsonObject.get("email").toString().replaceAll("\"", "");
-                    String image = jsonObject.get("image").toString().replaceAll("\"", "");
-                    String driver_license_id = jsonObject.get("driver_license_id").toString().replaceAll("\"", "");
-                    String driver_police_verification = jsonObject.get("driver_police_verification").toString().replaceAll("\"", "");
-                   //String image = jsonObject.get("image").toString().replaceAll("\"", "");
+                        JsonObject jsonObject = jobj.getAsJsonObject("info");
+
+                        String uid = jsonObject.get("uid").toString().replaceAll("\"", "");
+                        String gopher_id = jsonObject.get("gopher_id").toString().replaceAll("\"", "");
+                        String name = jsonObject.get("name").toString().replaceAll("\"", "");
+                        String mobile = jsonObject.get("mobile").toString().replaceAll("\"", "");
+                        String email = jsonObject.get("email").toString().replaceAll("\"", "");
+                        String image = jsonObject.get("image").toString().replaceAll("\"", "");
+                        String driver_license_id = jsonObject.get("driver_license_id").toString().replaceAll("\"", "");
+                        String driver_police_verification = jsonObject.get("driver_police_verification").toString().replaceAll("\"", "");
+                        //String image = jsonObject.get("image").toString().replaceAll("\"", "");
 
 
-                    globalClass.setId(uid);
-                    globalClass.setName(name);
-                    globalClass.setPhone_number(mobile);
-                    globalClass.setEmail(email);
-                    globalClass.setProfil_pic(image);
-                    globalClass.setLogin_status(true);
+                        globalClass.setId(uid);
+                        globalClass.setName(name);
+                        globalClass.setPhone_number(mobile);
+                        globalClass.setEmail(email);
+                        globalClass.setProfil_pic(image);
+                        globalClass.setLogin_status(true);
 
-                    prefrence.savePrefrence();
+                        prefrence.savePrefrence();
 
-                    Intent mainIntent = new Intent(LoginScreen.this, DrawerActivity.class);
-                    startActivity(mainIntent);
-                    finish();
-
+                        Intent mainIntent = new Intent(LoginScreen.this, DrawerActivity.class);
+                        startActivity(mainIntent);
+                        finish();
+                    }else{
+                        Toasty.error(LoginScreen.this,message, Toast.LENGTH_LONG).show();
+                    }
+                    pd.dismiss();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -179,8 +204,8 @@ public class LoginScreen extends AppCompatActivity {
 
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "login Error: " + error.getMessage());
-                Toast.makeText(LoginScreen.this, error.getMessage(), Toast.LENGTH_LONG).show();
-
+             //   Toast.makeText(LoginScreen.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                    pd.dismiss();
             }
         }) {
 
@@ -195,6 +220,8 @@ public class LoginScreen extends AppCompatActivity {
                 params.put("device_id", device_id);
                 params.put("fcm_reg_token", "12345");
                 params.put("device_type", "android");
+                params.put("latitude", String.valueOf(latitude));
+                params.put("longitude", String.valueOf(longitude));
 
 
                 Log.d(TAG, "url_hit: " + WebserviceUrl.login);

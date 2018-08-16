@@ -47,6 +47,8 @@ public class Viewed_Dashboard extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_viewed, container, false);
 
+        Log.d(TAG, "onCreateView:Viewed_Dashboard ");
+
         globalClass = (GlobalClass) getActivity().getApplicationContext();
 
         pd=new ProgressDialog(getActivity());
@@ -66,7 +68,7 @@ public class Viewed_Dashboard extends Fragment {
 
         String tag_string_req = "req_login";
 
-   pd.show();
+         pd.show();
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 WebserviceUrl.job_list, new Response.Listener<String>() {
@@ -176,7 +178,7 @@ public class Viewed_Dashboard extends Fragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("id","23");
+                params.put("id",globalClass.getId());
 
                 Log.d(TAG, "getParams: " + params);
 

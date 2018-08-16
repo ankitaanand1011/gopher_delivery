@@ -1,6 +1,7 @@
 package com.sketch.deliveryboy.Activity;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -16,27 +17,54 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.sketch.deliveryboy.R;
+import com.sketch.deliveryboy.utils.GlobalClass;
+import com.sketch.deliveryboy.utils.Shared_Preference;
+import com.sketch.deliveryboy.utils.WebserviceUrl;
 import com.williamww.silkysignature.views.SignaturePad;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.conn.ConnectTimeoutException;
+import es.dmoral.toasty.Toasty;
+
 
 public class Delivered extends AppCompatActivity {
+    String TAG = "delivered";
     TextView submit;
     private SignaturePad mSignaturePad;
     ImageView img_clear;
+    GlobalClass globalClass;
+    Shared_Preference prefrence;
+    ProgressDialog pd;
+    File photo;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.delivered);
+
+        globalClass = (GlobalClass)getApplicationContext();
+        prefrence = new Shared_Preference(Delivered.this);
+        prefrence.loadPrefrence();
+        pd=new ProgressDialog(Delivered.this);
+        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        pd.setMessage("Loading...");
 
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -97,13 +125,7 @@ public class Delivered extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Bitmap signatureBitmap = mSignaturePad.getSignatureBitmap();
-                addJpgSignatureToGallery(signatureBitmap);
-                mSignaturePad.clear();
-                Intent viewst=new Intent(getApplicationContext(), UserRating.class);
-                viewst.putExtra("c_id","22");
-
-                startActivity(viewst);
+                add_signature_url();
             }
         });
 
@@ -148,7 +170,7 @@ public class Delivered extends AppCompatActivity {
 
         }
         try {
-            File photo = new File(folder, String.format("Signature_%d.jpg", System.currentTimeMillis()));
+             photo = new File(folder, String.format("Signature_%d.jpg", System.currentTimeMillis()));
             saveBitmapToJPG(signature, photo);
             scanMediaFile(photo);
 
@@ -159,6 +181,96 @@ public class Delivered extends AppCompatActivity {
 
 
         return success;
+    }
+
+    public void add_signature_url(){
+
+        pd.show();
+
+        String url = WebserviceUrl.add_signature;
+        AsyncHttpClient cl = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+
+        params.put("id",globalClass.getId());
+        params.put("customer_id",getIntent().getStringExtra("customer_id"));
+        params.put("job_id",getIntent().getStringExtra("id"));
+
+
+        try{
+            params.put("signature_image", photo);
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+
+        Log.d(TAG , "URL "+url);
+        Log.d(TAG , "params "+params.toString());
+
+
+        int DEFAULT_TIMEOUT = 15 * 1000;
+        cl.setMaxRetriesAndTimeout(3 , DEFAULT_TIMEOUT);
+        cl.post(url, params, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                if (response != null) {
+                    Log.d(TAG, "add_signature- " + response.toString());
+                    try {
+
+                        //JSONObject result = response.getJSONObject("result");
+
+                        int status = response.getInt("status");
+                        String message = response.getString("message");
+
+                        if (status == 1) {
+
+                            // Log.d(TAG, "name: "+name)
+
+
+
+                            Bitmap signatureBitmap = mSignaturePad.getSignatureBitmap();
+                            addJpgSignatureToGallery(signatureBitmap);
+                            mSignaturePad.clear();
+                            Intent viewst=new Intent(getApplicationContext(), UserRating.class);
+                            viewst.putExtra("c_id",getIntent().getStringExtra("customer_id"));
+
+                            startActivity(viewst);
+
+
+
+                            Toasty.success(Delivered.this, message, Toast.LENGTH_SHORT, true).show();
+
+                        } else{
+
+
+                            Toasty.warning(Delivered.this, message, Toast.LENGTH_SHORT, true).show();
+                        }
+
+                        pd.dismiss();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+
+                // pd.dismiss();
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString,
+                                  Throwable throwable) {
+
+                Log.d(TAG+"Failed: ", ""+statusCode);
+                Log.d(TAG+"Error : ", "" + throwable);
+                Log.e(TAG, String.valueOf(throwable instanceof ConnectTimeoutException));
+                Toasty.error(Delivered.this,"Something went wrong.",Toast.LENGTH_LONG).show();
+                pd.dismiss();
+
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+        });
+
+
     }
 
     private void scanMediaFile(File photo) {

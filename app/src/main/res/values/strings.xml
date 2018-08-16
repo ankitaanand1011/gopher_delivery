@@ -15,13 +15,13 @@
     <string name="Instruction">Instruction</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string-array name="spinnerItems">
+  <!--  <string-array name="spinnerItems">
         <item>Delivered</item>
         <item>On the way</item>
         <item>Not delivered</item>
 
     </string-array>
-
+-->
 
 
     <string name="submit">Submit</string>

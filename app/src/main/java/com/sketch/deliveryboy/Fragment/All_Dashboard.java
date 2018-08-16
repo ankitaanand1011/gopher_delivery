@@ -47,6 +47,9 @@ public class All_Dashboard extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_all, container, false);
 
+
+        Log.d(TAG, "onCreateView:All_Dashboard ");
+
         globalClass = (GlobalClass) getActivity().getApplicationContext();
         pd=new ProgressDialog(getActivity());
         pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -63,10 +66,10 @@ public class All_Dashboard extends Fragment {
         return view;
     }
 
-    private void product_type_url() {
+    public void product_type_url() {
         // Tag used to cancel the request
 
-        pd.show();
+       // pd.show();
         String tag_string_req = "req_login";
 
       //  globalClass.show_pd(getActivity());
@@ -155,7 +158,7 @@ public class All_Dashboard extends Fragment {
                         list_all.setAdapter(adapterMessages);
                         adapterMessages.notifyDataSetChanged();
 
-                     pd.dismiss();
+                //     pd.dismiss();
 
                     }
                 } catch (Exception e) {
@@ -168,7 +171,7 @@ public class All_Dashboard extends Fragment {
 
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, "job_list Error: " + error.getMessage());
-                Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_LONG).show();
                 pd.dismiss();
             }
         }) {
@@ -177,7 +180,7 @@ public class All_Dashboard extends Fragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("id","23");
+                params.put("id",globalClass.getId());
 
                 Log.d(TAG, "getParams: " + params);
 

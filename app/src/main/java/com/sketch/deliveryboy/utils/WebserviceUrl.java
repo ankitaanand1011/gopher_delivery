@@ -13,16 +13,18 @@ public class WebserviceUrl {
     public static String login = SiteName +"login";
     public static String job_list = SiteName +"job_list";
     public static String review = SiteName +"review";
-    public static String product_type = SiteName +"product_type";
-    public static String place_order = SiteName +"place_order";
-    public static String confirm_otp = SiteName +"confirm_otp";
+    public static String order_history = SiteName +"order_history";
+    public static String job_cancel = SiteName +"job_cancel";
+    public static String job_status = SiteName +"job_status";
     public static String forgetpass = SiteName +"forgetpass";
     public static String resetpass = SiteName +"resetpass";
     public static String get_profile_details = SiteName +"get_profile_details";
-    public static String update_profile_details = SiteName +"update_profile_details";
+    public static String job_status_update = SiteName +"job_status_update";
     public static String job_accept = SiteName +"job_accept";
     public static String job_viewed = SiteName +"job_viewed";
     public static String job_details = SiteName +"job_details";
+    public static String add_signature = SiteName +"add_signature";
+    public static String merged_job_list = SiteName +"merged_job_list";
 
     public static String logout = SiteName +"logout";
 

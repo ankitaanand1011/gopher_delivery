@@ -9,6 +9,7 @@
     <color name="track_blue">#1081e0</color>
     <color name="colorAccent">#1081e0</color>
     <color name="grey">#DCDCDC</color>
+    <color name="d_grey">#D5D8DC</color>
 
     <color name="white">#ffffff</color>
     <color name="black">#030303</color>
@@ -16,6 +17,9 @@
     <color name="dark_blue">#0865c1</color>
     <color name="blue_chat_box">#cee1ea</color>
     <color name="white_chat_box">#ebebeb</color>
+    <color name="purple">#7D3C98</color>
+    <color name="light_blue">#EBF5FB</color>
+    <color name="light_orange">#FBEEE6</color>
 
     <color name="main_cal_bg">#05324f</color>
     <color name="upcoming_date">#379245</color>

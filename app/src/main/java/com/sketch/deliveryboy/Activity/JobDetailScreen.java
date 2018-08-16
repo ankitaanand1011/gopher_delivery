@@ -1,5 +1,6 @@
 package com.sketch.deliveryboy.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -29,8 +30,9 @@ import es.dmoral.toasty.Toasty;
 
 public class JobDetailScreen extends AppCompatActivity {
     String TAG = "view_job";
-    TextView accept,tv_title,tv_instruction,tv_pick_location,tv_drop_loc;
+    TextView accept,tv_title,tv_instruction,tv_pick_location,tv_drop_loc,tv_next;
     GlobalClass globalClass;
+    ProgressDialog pd;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,16 +48,34 @@ public class JobDetailScreen extends AppCompatActivity {
         });
 
         globalClass = (GlobalClass) getApplicationContext();
+
+        pd=new ProgressDialog(JobDetailScreen.this);
+        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        pd.setMessage(getResources().getString(R.string.loading));
+
+
         accept=findViewById(R.id.accept);
+        tv_next=findViewById(R.id.tv_next);
         tv_title=findViewById(R.id.tv_title);
         tv_instruction=findViewById(R.id.tv_instruction);
-        tv_pick_location=findViewById(R.id.tv_pick_location);
-        tv_drop_loc=findViewById(R.id.tv_drop_loc);
+        tv_pick_location=findViewById(R.id.tv_pickup);
+        tv_drop_loc=findViewById(R.id.tv_delivery_location);
 
         tv_title.setText(getIntent().getStringExtra("name"));
         tv_instruction.setText(getIntent().getStringExtra("instruction"));
         tv_pick_location.setText(getIntent().getStringExtra("shop_address"));
         tv_drop_loc.setText(getIntent().getStringExtra("address"));
+
+        if(getIntent().getStringExtra("from").equals("accepted_adapter")){
+
+            accept.setVisibility(View.GONE);
+            tv_next.setVisibility(View.VISIBLE);
+
+        }else {
+
+            accept.setVisibility(View.VISIBLE);
+            tv_next.setVisibility(View.GONE);
+        }
 
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +86,20 @@ public class JobDetailScreen extends AppCompatActivity {
             }
         });
 
-
+        tv_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(), JobStatus.class);
+                intent.putExtra("id",getIntent().getStringExtra("id"));
+                intent.putExtra("customer_id",getIntent().getStringExtra("customer_id"));
+                intent.putExtra("name",getIntent().getStringExtra("name"));
+                intent.putExtra("instruction",getIntent().getStringExtra("instruction"));
+                intent.putExtra("address",getIntent().getStringExtra("address"));
+                intent.putExtra("job_status",getIntent().getStringExtra("job_status"));
+                intent.putExtra("product_price",getIntent().getStringExtra("product_price"));
+                startActivity(intent);
+            }
+        });
     }
 
     private void job_accept_url(final String id) {
@@ -74,7 +107,7 @@ public class JobDetailScreen extends AppCompatActivity {
 
 
         String tag_string_req = "req_login";
-
+        pd.show();
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 WebserviceUrl.job_accept, new Response.Listener<String>() {
 
@@ -131,6 +164,7 @@ public class JobDetailScreen extends AppCompatActivity {
                         Log.d(TAG, "onResponse:mydrtrtjj ");
                         Intent intent=new Intent(getApplicationContext(), JobStatus.class);
                         intent.putExtra("id",id);
+                        intent.putExtra("customer_id",customer_id);
                         intent.putExtra("name",name);
                         intent.putExtra("instruction",instruction);
                         intent.putExtra("address",address);
@@ -147,6 +181,8 @@ public class JobDetailScreen extends AppCompatActivity {
                         Toasty.error(JobDetailScreen.this, message, Toast.LENGTH_LONG).show();
 
                     }
+
+                    pd.dismiss();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

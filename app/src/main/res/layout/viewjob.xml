@@ -34,16 +34,6 @@
     </RelativeLayout>
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="View Job"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:visibility="gone"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:textSize="18dp"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -51,11 +41,9 @@
         android:layout_margin="10dp">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#ffffff">
+        android:background="@color/white">
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
@@ -63,105 +51,84 @@
             android:text="My Title of the product"
             android:padding="10dp"
             android:gravity="left"
-            android:textSize="16dp"/>
+            android:textSize="16sp"/>
         <TextView
             android:id="@+id/tv_instruction"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="@string/description"
+            android:layout_height="wrap_content"
             android:padding="10dp"
             android:gravity="left"
-            android:textSize="16dp"/>
+            android:textSize="16sp"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
 
-        <!--
-                <RatingBar
-                    android:id="@+id/rating"
-                    android:layout_width="260dp"
+            android:padding="20dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/img_pic_loc"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:numStars="5"
-                    android:padding="10dp"
-                    android:isIndicator="false"
-                    android:layout_gravity="center"
-                    android:theme="@style/RatingBar"
-                    android:progressTint="@color/track_orange"
-                    android:stepSize="1"
+                    android:src="@mipmap/pickuplocation"/>
+
+                <TextView
+
+                    android:id="@+id/tv_pickup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pickup Location"
+                    android:layout_toRightOf="@+id/img_pic_loc"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"
+
+                    android:layout_centerVertical="true"
+                    android:textSize="16sp"
+                    android:textColor="@color/dark_grey"
+
                     />
-        -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="horizontal"
-            android:background="#ffffff"
-            android:layout_marginTop="10dp">
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:gravity="left"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="23dp"
-                android:src="@mipmap/pickuplocation"
-              />
-            <TextView
-                android:id="@+id/tv_pick_location"
-                android:layout_width="wrap_content"
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/light_grey"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/pickingLocation"
-               android:layout_marginLeft="20dp"
-                android:gravity="left"
-                android:textStyle="bold"
+                android:layout_marginTop="10dp">
 
-                android:textSize="16dp"/>
+                <ImageView
+                    android:id="@+id/img_dil_loc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/deliverylocation"/>
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="-20dp"
-            >
+                <TextView
+                    android:id="@+id/tv_delivery_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pickup Location"
+                    android:layout_toRightOf="@+id/img_dil_loc"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:layout_marginLeft="30dp"
+                    android:layout_centerVertical="true"
+                    android:textSize="16sp"
+                    android:textColor="@color/dark_grey"
 
-                android:gravity="left"
-                android:src="@mipmap/dot" />
+                    />
 
-        </LinearLayout>
+            </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="horizontal"
-            android:background="#ffffff"
-            android:layout_marginTop="-20dp"
-           >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:gravity="left"
-                android:src="@mipmap/deliverylocation" />
-            <TextView
-                android:id="@+id/tv_drop_loc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/deliveryLocation"
-                android:layout_marginLeft="20dp"
-                android:gravity="left"
-                android:textStyle="bold"
-
-                android:textSize="16dp"/>
 
         </LinearLayout>
 
@@ -321,6 +288,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Accept"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textColor="#ffffff"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/track_green"
+            />
+
+        <TextView
+            android:id="@+id/tv_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
             android:paddingTop="8dp"

@@ -1,5 +1,6 @@
 package com.sketch.deliveryboy.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -44,6 +45,7 @@ public class Product_Detail_Screen extends AppCompatActivity {
 
     ImageLoader loader;
     DisplayImageOptions defaultOptions;
+    ProgressDialog pd;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,6 +78,11 @@ public class Product_Detail_Screen extends AppCompatActivity {
         });
 
 
+        pd=new ProgressDialog(Product_Detail_Screen.this);
+        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        pd.setMessage(getResources().getString(R.string.loading));
+
+
         tv_order_id = findViewById(R.id.tv_order_id);
         tv_product_name = findViewById(R.id.tv_product_name);
         tv_customer_name = findViewById(R.id.tv_customer_name);
@@ -93,7 +100,7 @@ public class Product_Detail_Screen extends AppCompatActivity {
     private void job_accept_url(final String id) {
         // Tag used to cancel the request
 
-
+        pd.show();
         String tag_string_req = "req_login";
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
@@ -170,6 +177,7 @@ public class Product_Detail_Screen extends AppCompatActivity {
                         Toasty.error(Product_Detail_Screen.this, message, Toast.LENGTH_LONG).show();
 
                     }
+                    pd.dismiss();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -182,6 +190,7 @@ public class Product_Detail_Screen extends AppCompatActivity {
                 Log.e(TAG, "job_accept Error: " + error.getMessage());
                 Toasty.error(Product_Detail_Screen.this, error.getMessage(), Toast.LENGTH_LONG).show();
                 //   globalClass.dismiss_pd(getActivity());
+                pd.dismiss();
             }
         }) {
 

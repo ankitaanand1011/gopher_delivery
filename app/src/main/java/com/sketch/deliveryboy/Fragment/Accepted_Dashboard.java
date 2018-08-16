@@ -47,6 +47,8 @@ public class Accepted_Dashboard extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_accepted, container, false);
 
+
+        Log.d(TAG, "onCreateView:Accepted_Dashboard ");
         globalClass = (GlobalClass) getActivity().getApplicationContext();
         pd=new ProgressDialog(getActivity());
         pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -175,7 +177,7 @@ public class Accepted_Dashboard extends Fragment {
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("id","23");
+                params.put("id",globalClass.getId());
 
                 Log.d(TAG, "getParams: " + params);
 

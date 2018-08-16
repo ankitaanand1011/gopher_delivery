@@ -29,50 +29,50 @@
         </activity>
         <activity android:name=".Activity.LoginScreen"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
         <activity android:name=".Activity.ProfileScreen"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
 
 
         <activity android:name=".Activity.JobDetailScreen"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
 
         <activity android:name=".Activity.DrawerActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
 
         <activity android:name=".Activity.JobStatus"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
 
         <activity android:name=".Activity.Delivered"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
 
         <activity android:name=".Activity.UserRating"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+            android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"/>
 
         <activity
             android:name=".Activity.Forget_Password"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
 
         <activity
             android:name=".Activity.Reset_Password"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
 
         <activity
             android:name=".Activity.Product_Detail_Screen"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
 
         <activity
             android:name=".Activity.Request_Money_Screen"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
 
 
-
+        <service android:name=".utils.GPSTracker"/>
 
 
     </application>
