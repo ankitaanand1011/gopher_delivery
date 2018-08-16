@@ -175,10 +175,14 @@ public class AdapterViewed extends BaseAdapter {
 
                         Intent intent = new Intent(context, JobDetailScreen.class);
                         intent.putExtra("id",id);
+                        intent.putExtra("customer_id",customer_id);
                         intent.putExtra("name",name);
                         intent.putExtra("instruction",instruction);
                         intent.putExtra("address",address);
                         intent.putExtra("shop_address",shop_address);
+                        intent.putExtra("job_status",job_status);
+                        intent.putExtra("product_price",product_price);
+                        intent.putExtra("product_quantity",product_quantity);
                         intent.putExtra("from","viewed_adapter");
 
                         context.startActivity(intent);

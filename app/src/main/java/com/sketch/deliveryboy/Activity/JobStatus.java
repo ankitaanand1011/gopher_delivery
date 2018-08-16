@@ -40,7 +40,7 @@ public class JobStatus extends AppCompatActivity {
             tv_description,tv_addess,tv_price,tv_view_details,tv_request_for_money;
     Spinner spinner_status;
     ImageView img_back,img_accepted,img_picked_up,img_out_for_delivery;
-    String status, job_id,instruction, address, product_price, customer_id,item;
+    String status, job_id,instruction, address, product_price, customer_id,item,product_quantity,name;
     GlobalClass globalClass;
     ProgressDialog pd;
 
@@ -90,15 +90,18 @@ public class JobStatus extends AppCompatActivity {
         job_id =  getIntent().getStringExtra("id");
         instruction = getIntent().getStringExtra("instruction");
         address = getIntent().getStringExtra("address");
-        product_price = "$ "+getIntent().getStringExtra("product_price");
+        product_price = getIntent().getStringExtra("product_price");
+        product_quantity = getIntent().getStringExtra("product_quantity");
         customer_id = getIntent().getStringExtra("customer_id");
+        name = getIntent().getStringExtra("name");
 
         tv_description.setText(instruction);
         tv_addess.setText(address);
-        tv_price.setText(product_price);
+        tv_price.setText("$ "+product_price);
 
 
         Log.d(TAG, "functions: "+status);
+        Log.d("mercy", "functions: job_sts "+product_quantity);
 
 
         List<String> categories = new ArrayList<String>();
@@ -207,7 +210,10 @@ public class JobStatus extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getApplicationContext(), Request_Money_Screen.class);
-                intent.putExtra("id",job_id);
+                intent.putExtra("job_id",job_id);
+                intent.putExtra("product_price",product_price);
+                intent.putExtra("product_quantity",product_quantity);
+                intent.putExtra("name",name);
                 startActivity(intent);
             }
         });

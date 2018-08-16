@@ -26,9 +26,7 @@ import com.sketch.deliveryboy.utils.WebserviceUrl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
-import es.dmoral.toasty.Toasty;
 
 
 public class AdapterAccepted extends BaseAdapter {
@@ -116,6 +114,7 @@ public class AdapterAccepted extends BaseAdapter {
                     intent.putExtra("shop_address",arr_order_all.get(position).get("shop_address"));
                     intent.putExtra("job_status",arr_order_all.get(position).get("job_status"));
                     intent.putExtra("product_price",arr_order_all.get(position).get("product_price"));
+                    intent.putExtra("product_quantity",arr_order_all.get(position).get("product_quantity"));
                     intent.putExtra("from","accepted_adapter");
 
                     context.startActivity(intent);

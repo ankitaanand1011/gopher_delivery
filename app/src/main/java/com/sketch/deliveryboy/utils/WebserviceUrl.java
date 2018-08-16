@@ -25,6 +25,7 @@ public class WebserviceUrl {
     public static String job_details = SiteName +"job_details";
     public static String add_signature = SiteName +"add_signature";
     public static String merged_job_list = SiteName +"merged_job_list";
+    public static String request_for_more_money = SiteName +"request_for_more_money";
 
     public static String logout = SiteName +"logout";
 

@@ -97,6 +97,7 @@ public class JobDetailScreen extends AppCompatActivity {
                 intent.putExtra("address",getIntent().getStringExtra("address"));
                 intent.putExtra("job_status",getIntent().getStringExtra("job_status"));
                 intent.putExtra("product_price",getIntent().getStringExtra("product_price"));
+                intent.putExtra("product_quantity",getIntent().getStringExtra("product_quantity"));
                 startActivity(intent);
             }
         });
@@ -170,8 +171,9 @@ public class JobDetailScreen extends AppCompatActivity {
                         intent.putExtra("address",address);
                         intent.putExtra("job_status",job_status);
                         intent.putExtra("product_price",product_price);
+                        intent.putExtra("product_quantity",product_quantity);
                         startActivity(intent);
-
+                        Log.d("mercy", "functions: job_detail "+product_quantity);
 
 
                         //  globalClass.dismiss_pd(getActivity());
