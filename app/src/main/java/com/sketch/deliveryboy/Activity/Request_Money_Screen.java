@@ -82,6 +82,7 @@ public class Request_Money_Screen extends AppCompatActivity {
     ImageView imageView2;
     String p_amnt;
     float total_price,required_amt;
+    ImageView img_back;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -109,6 +110,7 @@ public class Request_Money_Screen extends AppCompatActivity {
 
         rl_image = findViewById(R.id.rl_image);
         imageView2 = findViewById(R.id.imageView2);
+        img_back = findViewById(R.id.img_back);
 
 
 
@@ -140,7 +142,7 @@ public class Request_Money_Screen extends AppCompatActivity {
             }
         }
 
-        ImageView img_back = findViewById(R.id.img_back);
+
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -422,7 +424,7 @@ public class Request_Money_Screen extends AppCompatActivity {
 
 
                             Toasty.success(Request_Money_Screen.this, message, Toast.LENGTH_SHORT, true).show();
-
+                            finish();
                         } else{
 
 

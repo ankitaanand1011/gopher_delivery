@@ -49,10 +49,27 @@
                 android:text="This is the first Product "
                 />
 
+
+
         </LinearLayout>
-        <LinearLayout
+
+        <TextView
+            android:id="@+id/tv_is_money_requested"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
             android:layout_below="@id/address_line"
-             android:layout_marginTop="20dp"
+            android:text="This is the first Product "
+            />
+
+        <LinearLayout
+
+            android:id="@+id/rl_view_detail"
+            android:layout_below="@+id/tv_is_money_requested"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">

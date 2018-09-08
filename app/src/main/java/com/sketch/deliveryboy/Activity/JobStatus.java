@@ -97,7 +97,7 @@ public class JobStatus extends AppCompatActivity {
 
         tv_description.setText(instruction);
         tv_addess.setText(address);
-        tv_price.setText("$ "+product_price);
+        tv_price.setText("$ "+getIntent().getStringExtra("gopher_earned"));
 
 
         Log.d(TAG, "functions: "+status);

@@ -1,6 +1,7 @@
 package com.sketch.deliveryboy.Adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,7 @@ public class AdapterJobList extends RecyclerView.Adapter<AdapterJobList.ViewHold
 
     DisplayImageOptions defaultOptions;
     GlobalClass globalClass;
+    String is_request_for_money,status;
 
     public AdapterJobList(Context c, ArrayList<HashMap<String,String>> arr_order_job_list ) {
         this.inflater = LayoutInflater.from(c);
@@ -71,46 +73,65 @@ public class AdapterJobList extends RecyclerView.Adapter<AdapterJobList.ViewHold
 
 
         holder.tv_order_id.setText(arr_order_job_list.get(position).get("id"));
-       // holder.tv_customer_name.setText(arr_order_history.get(position).get("coupon_discription"));
+        holder.tv_customer_name.setText(arr_order_job_list.get(position).get("fname"));
         holder.tv_product_name.setText(arr_order_job_list.get(position).get("name"));
         holder.tv_order_date.setText(arr_order_job_list.get(position).get("order_placed_on"));
         holder.tv_price.setText("$ "+arr_order_job_list.get(position).get("product_price"));
         holder.tv_qty.setText(arr_order_job_list.get(position).get("product_quantity"));
         holder.tv_address.setText(arr_order_job_list.get(position).get("address"));
 
-        String status = arr_order_job_list.get(position).get("status1");
+        is_request_for_money = arr_order_job_list.get(position).get("is_request_for_money");
 
-        switch (status) {
-            case "order_placed":
-                holder.tv_status.setText("Placed");
-                holder.tv_status.setTextColor(mContext.getResources().getColor(R.color.orange));
+        switch (is_request_for_money) {
+            case "1":
 
+                holder.tv_status.setText("Money Request Pending");
+                holder.tv_status.setTypeface(holder.tv_status.getTypeface(), Typeface.BOLD);
+                holder.tv_status.setTextColor(mContext.getResources().getColor(R.color.red));
                 break;
-            case "order_accepted":
-                holder.tv_status.setText("Accepted");
-                holder.tv_status.setTextColor(mContext.getResources().getColor(R.color.purple));
+            case "2":
 
-                break;
-            case "order_out_for_delivery":
-                holder.tv_status.setText("Out For Delivery");
-                holder.tv_status.setTextColor(mContext.getResources().getColor(R.color.track_blue));
-
-                break;
-            case "order_completed":
-                holder.tv_status.setText("Completed");
+                holder.tv_status.setText("Money Request Accepted by " + arr_order_job_list.get(position).get("fname"));
+                holder.tv_status.setTypeface(holder.tv_status.getTypeface(), Typeface.BOLD);
                 holder.tv_status.setTextColor(mContext.getResources().getColor(R.color.green));
 
                 break;
-            case "order_cancelled":
-                holder.tv_status.setText("Cancelled");
-                holder.tv_status.setTextColor(mContext.getResources().getColor(R.color.red));
-
-                break;
             default:
-                holder.tv_status.setText("");
+
+                status = arr_order_job_list.get(position).get("status1");
+
+                switch (status) {
+                    case "order_placed":
+                        holder.tv_status.setText("Placed");
+                        holder.tv_status.setTextColor(mContext.getResources().getColor(R.color.orange));
+
+                        break;
+                    case "order_accepted":
+                        holder.tv_status.setText("Accepted");
+                        holder.tv_status.setTextColor(mContext.getResources().getColor(R.color.purple));
+
+                        break;
+                    case "order_out_for_delivery":
+                        holder.tv_status.setText("Out For Delivery");
+                        holder.tv_status.setTextColor(mContext.getResources().getColor(R.color.track_blue));
+
+                        break;
+                    case "order_completed":
+                        holder.tv_status.setText("Completed");
+                        holder.tv_status.setTextColor(mContext.getResources().getColor(R.color.green));
+
+                        break;
+                    case "order_cancelled":
+                        holder.tv_status.setText("Cancelled");
+                        holder.tv_status.setTextColor(mContext.getResources().getColor(R.color.red));
+
+                        break;
+                    default:
+                        holder.tv_status.setText("");
+                        break;
+                }
                 break;
         }
-
 
         loader.displayImage(arr_order_job_list.get(position).get("image"), holder.img_product , defaultOptions);
 

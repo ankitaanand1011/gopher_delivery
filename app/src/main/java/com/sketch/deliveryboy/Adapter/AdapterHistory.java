@@ -65,6 +65,39 @@ public class AdapterHistory extends RecyclerView.Adapter<AdapterHistory.ViewHold
         holder.tv_address.setText(arr_order_history.get(position).get("address"));
 
 
+       String status = arr_order_history.get(position).get("status1");
+
+
+        switch (status) {
+            case "order_placed":
+                holder.tv_order_status.setText("Placed");
+                holder.tv_order_status.setTextColor(mContext.getResources().getColor(R.color.orange));
+
+                break;
+            case "order_accepted":
+                holder.tv_order_status.setText("Accepted");
+                holder.tv_order_status.setTextColor(mContext.getResources().getColor(R.color.purple));
+
+                break;
+            case "order_out_for_delivery":
+                holder.tv_order_status.setText("Out For Delivery");
+                holder.tv_order_status.setTextColor(mContext.getResources().getColor(R.color.track_blue));
+
+                break;
+            case "order_completed":
+                holder.tv_order_status.setText("Completed");
+                holder.tv_order_status.setTextColor(mContext.getResources().getColor(R.color.green));
+
+                break;
+            case "order_cancelled":
+                holder.tv_order_status.setText("Cancelled");
+                holder.tv_order_status.setTextColor(mContext.getResources().getColor(R.color.red));
+
+                break;
+            default:
+                holder.tv_order_status.setText("");
+                break;
+        }
 
         /*  holder.tv_apply.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +124,8 @@ public class AdapterHistory extends RecyclerView.Adapter<AdapterHistory.ViewHold
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_order_date,tv_address,tv_qty,tv_price,tv_product_name,tv_customer_name,tv_order_id;
+        TextView tv_order_date,tv_address,tv_qty,tv_price,tv_product_name,
+                tv_customer_name,tv_order_id,tv_order_status;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -105,6 +139,7 @@ public class AdapterHistory extends RecyclerView.Adapter<AdapterHistory.ViewHold
             tv_qty = itemView.findViewById(R.id.tv_qty);
             tv_address = itemView.findViewById(R.id.tv_address);
             tv_order_date = itemView.findViewById(R.id.tv_order_date);
+            tv_order_status = itemView.findViewById(R.id.tv_order_status);
 
 
 

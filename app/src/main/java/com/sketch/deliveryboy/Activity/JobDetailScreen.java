@@ -2,6 +2,9 @@ package com.sketch.deliveryboy.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -30,7 +33,7 @@ import es.dmoral.toasty.Toasty;
 
 public class JobDetailScreen extends AppCompatActivity {
     String TAG = "view_job";
-    TextView accept,tv_title,tv_instruction,tv_pick_location,tv_drop_loc,tv_next;
+    TextView accept,tv_title,tv_instruction,tv_pick_location,tv_drop_loc,tv_next,tv_view_map;
     GlobalClass globalClass;
     ProgressDialog pd;
     @Override
@@ -60,6 +63,7 @@ public class JobDetailScreen extends AppCompatActivity {
         tv_instruction=findViewById(R.id.tv_instruction);
         tv_pick_location=findViewById(R.id.tv_pickup);
         tv_drop_loc=findViewById(R.id.tv_delivery_location);
+        tv_view_map=findViewById(R.id.tv_view_map);
 
         tv_title.setText(getIntent().getStringExtra("name"));
         tv_instruction.setText(getIntent().getStringExtra("instruction"));
@@ -98,7 +102,34 @@ public class JobDetailScreen extends AppCompatActivity {
                 intent.putExtra("job_status",getIntent().getStringExtra("job_status"));
                 intent.putExtra("product_price",getIntent().getStringExtra("product_price"));
                 intent.putExtra("product_quantity",getIntent().getStringExtra("product_quantity"));
+                intent.putExtra("gopher_earned",getIntent().getStringExtra("gopher_earned"));
                 startActivity(intent);
+            }
+        });
+
+        tv_view_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isGoogleMapsInstalled()) {
+                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+
+                            Uri.parse("http://maps.google.com/maps?"
+                                    +"saddr="+getIntent().getStringExtra("o_lat")
+                                    +","+
+                                    getIntent().getStringExtra("o_lng")
+                                    +"&daddr="+
+                                    getIntent().getStringExtra("d_lat")
+                                    +","+
+                                    getIntent().getStringExtra("d_lng")));
+                    startActivity(intent);
+                }else{
+                      /*  Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.google.android.apps.maps"));
+                        context.startActivity(intent);
+
+                        //Finish the activity so they can't circumvent the check
+                        ((Activity)context).finish();*/
+
+                }
             }
         });
     }
@@ -157,7 +188,7 @@ public class JobDetailScreen extends AppCompatActivity {
                             String job_status = jObject.get("job_status").toString().replaceAll("\"", "");
                             String order_placed_on = jObject.get("order_placed_on").toString().replaceAll("\"", "");
 
-
+                            String gopher_earned = jObject.get("gopher_earned").toString().replaceAll("\"", "");
 
                         //    arr_order_all.add(map_ser);
 
@@ -172,6 +203,7 @@ public class JobDetailScreen extends AppCompatActivity {
                         intent.putExtra("job_status",job_status);
                         intent.putExtra("product_price",product_price);
                         intent.putExtra("product_quantity",product_quantity);
+                        intent.putExtra("gopher_earned",gopher_earned);
                         startActivity(intent);
                         Log.d("mercy", "functions: job_detail "+product_quantity);
 
@@ -221,4 +253,17 @@ public class JobDetailScreen extends AppCompatActivity {
 
 
     }
+    public boolean isGoogleMapsInstalled()
+    {
+        try
+        {
+            ApplicationInfo info = getPackageManager().getApplicationInfo("com.google.android.apps.maps", 0 );
+            return true;
+        }
+        catch(PackageManager.NameNotFoundException e)
+        {
+            return false;
+        }
+    }
+
 }

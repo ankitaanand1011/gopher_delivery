@@ -72,7 +72,6 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:text="@string/description"
                     android:padding="10dp"
                     android:gravity="left"
                     android:textSize="16dp"/>
@@ -99,7 +98,7 @@
                         android:layout_width="match_parent"
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
-                        android:text="This is the first kgkdjgbdfjffkjdgbjkfdgbkfdbkj  "
+
                         />
 
 
@@ -136,7 +135,6 @@
                         android:layout_width="match_parent"
                         android:layout_marginLeft="10dp"
                         android:layout_height="wrap_content"
-                        android:text="22-06-2018 at 11:30 PM  "
                         />
 
 

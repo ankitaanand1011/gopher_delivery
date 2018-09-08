@@ -19,7 +19,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.3"
+                android:layout_weight="1.5"
                 android:text="Order id :"
                 android:textColor="@color/dark_grey"
               
@@ -45,7 +45,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.3"
+                android:layout_weight="1.5"
 
                 android:text="Customer Name :"
                 android:textColor="@color/dark_grey"
@@ -99,7 +99,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.3"
+                        android:layout_weight="1.5"
                         android:text="Product :"
 
                         android:textColor="@color/dark_grey"
@@ -127,7 +127,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.3"
+                        android:layout_weight="1.5"
                         android:text="Order Date :"
 
                         android:textColor="@color/dark_grey"
@@ -156,7 +156,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.3"
+                        android:layout_weight="1.5"
                         android:text="Address :"
 
                         android:textColor="@color/dark_grey"
@@ -184,7 +184,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.3"
+                        android:layout_weight="1.5"
                         android:text="Qty :"
 
                         android:textColor="@color/dark_grey"
@@ -212,7 +212,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.3"
+                        android:layout_weight="1.5"
                         android:text="Price :"
 
                         android:textColor="@color/dark_grey"
@@ -240,7 +240,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.3"
+                        android:layout_weight="1.5"
                         android:text="Status :"
 
                         android:textColor="@color/dark_grey"

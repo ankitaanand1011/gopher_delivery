@@ -2,6 +2,9 @@ package com.sketch.deliveryboy.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +44,8 @@ public class AdapterViewed extends BaseAdapter {
 
       ArrayList<HashMap<String,String>> arr_order_viewed;
 
+    double o_lat, o_lng, d_lat, d_lng;
+    String s_lat,s_lng,lat,lng;
 
 
     public AdapterViewed(Context c, ArrayList<HashMap<String,String>> arr_order_viewed) {
@@ -100,6 +105,39 @@ public class AdapterViewed extends BaseAdapter {
             //addess.setText(arr_order_viewed.get(position).get("address"));
 
 
+            s_lat = arr_order_viewed.get(position).get("shop_latitude");
+            s_lng = arr_order_viewed.get(position).get("shop_longitude");
+            lat = arr_order_viewed.get(position).get("latitute");
+            lng = arr_order_viewed.get(position).get("longitude");
+
+          /*  o_lat = Double.parseDouble(s_lat);
+            o_lng = Double.parseDouble(s_lng);
+            d_lat = Double.parseDouble(lat);
+            d_lng = Double.parseDouble(lng);
+*/
+
+            navigation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (isGoogleMapsInstalled()) {
+                        Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+
+                                Uri.parse("http://maps.google.com/maps?" +
+                                        "saddr="+s_lat+","+s_lng+"&daddr="+lat+","+lng));
+                        context.startActivity(intent);
+                    }else{
+                      /*  Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.google.android.apps.maps"));
+                        context.startActivity(intent);
+
+                        //Finish the activity so they can't circumvent the check
+                        ((Activity)context).finish();*/
+
+                    }
+                }
+            });
+
+
 
             view_details.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -145,7 +183,7 @@ public class AdapterViewed extends BaseAdapter {
                     Log.d("TAG", "message :\t" + message);
 
                     if(status.equals("1")) {
-                        //   arr_order_all.clear();
+                        //   arr_order_viewed.clear();
                         JsonObject jObject =jobj.getAsJsonObject("info");
 
                         String id = jObject.get("id").toString().replaceAll("\"", "");
@@ -168,10 +206,15 @@ public class AdapterViewed extends BaseAdapter {
                         String status1 = jObject.get("status").toString().replaceAll("\"", "");
                         String job_status = jObject.get("job_status").toString().replaceAll("\"", "");
                         String order_placed_on = jObject.get("order_placed_on").toString().replaceAll("\"", "");
+                        String gopher_earned = jObject.get("gopher_earned").toString().replaceAll("\"", "");
+                      /*  String is_request_for_money = jObject.get("is_request_for_money").toString().replaceAll("\"", "");
 
+                        String user_id = jObject.get("user_id").toString().replaceAll("\"", "");
+                        String fname = jObject.get("fname").toString().replaceAll("\"", "");
+                        String mobile = jObject.get("mobile").toString().replaceAll("\"", "");
 
-
-                        //    arr_order_all.add(map_ser);
+*/
+                        //    arr_order_viewed.add(map_ser);
 
                         Intent intent = new Intent(context, JobDetailScreen.class);
                         intent.putExtra("id",id);
@@ -184,6 +227,12 @@ public class AdapterViewed extends BaseAdapter {
                         intent.putExtra("product_price",product_price);
                         intent.putExtra("product_quantity",product_quantity);
                         intent.putExtra("from","viewed_adapter");
+                        intent.putExtra("o_lat",shop_latitude);
+                        intent.putExtra("o_lng",shop_longitude);
+                        intent.putExtra("d_lat",latitute);
+                        intent.putExtra("d_lng",longitude);
+                        intent.putExtra("gopher_earned",gopher_earned);
+
 
                         context.startActivity(intent);
 
@@ -233,5 +282,17 @@ public class AdapterViewed extends BaseAdapter {
 
     }
 
+    public boolean isGoogleMapsInstalled()
+    {
+        try
+        {
+            ApplicationInfo info = context.getPackageManager().getApplicationInfo("com.google.android.apps.maps", 0 );
+            return true;
+        }
+        catch(PackageManager.NameNotFoundException e)
+        {
+            return false;
+        }
+    }
 
 }

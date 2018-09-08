@@ -124,6 +124,11 @@ public class All_Dashboard extends Fragment {
                             String status1 = jObject.get("status").toString().replaceAll("\"", "");
                             String job_status = jObject.get("job_status").toString().replaceAll("\"", "");
                             String order_placed_on = jObject.get("order_placed_on").toString().replaceAll("\"", "");
+                            String is_request_for_money = jObject.get("is_request_for_money").toString().replaceAll("\"", "");
+                            String gopher_earned = jObject.get("gopher_earned").toString().replaceAll("\"", "");
+                            String user_id = jObject.get("user_id").toString().replaceAll("\"", "");
+                            String fname = jObject.get("fname").toString().replaceAll("\"", "");
+                            String mobile = jObject.get("mobile").toString().replaceAll("\"", "");
 
 
                             HashMap<String, String> map_ser = new HashMap<String, String>();
@@ -147,6 +152,12 @@ public class All_Dashboard extends Fragment {
                             map_ser.put("status1", status1);
                             map_ser.put("job_status", job_status);
                             map_ser.put("order_placed_on", order_placed_on);
+                            map_ser.put("is_request_for_money", is_request_for_money);
+                            map_ser.put("gopher_earned", gopher_earned);
+
+                            map_ser.put("user_id", user_id);
+                            map_ser.put("fname", fname);
+                            map_ser.put("mobile", mobile);
 
                             arr_order_all.add(map_ser);
 

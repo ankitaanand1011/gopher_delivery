@@ -58,7 +58,7 @@ public class DrawerActivity extends AppCompatActivity {
     boolean doubleBackToExitPressedOnce = false;
 
     int frag ;
-    TextView header_text;
+    TextView header_text,toolbar_text;
     String k_stat;
     String fcm_reg_token="not found";
     String fcm_reg_token_temp;
@@ -128,7 +128,10 @@ public class DrawerActivity extends AppCompatActivity {
         toolbar_back =  toolbar.findViewById(R.id.toolbar_back);
         toolbar_profile =  toolbar.findViewById(R.id.toolbar_profile);
         toolbar_logo =  toolbar.findViewById(R.id.toolbar_logo);
+        toolbar_text =  toolbar.findViewById(R.id.toolbar_text);
         toolbar_back.setVisibility(View.GONE);
+        toolbar_text.setVisibility(View.GONE);
+       // toolbar_logo.setVisibility(View.GONE);
 
         toolbar_profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -287,7 +290,8 @@ public class DrawerActivity extends AppCompatActivity {
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
 
-
+                toolbar_text.setVisibility(View.GONE);
+                toolbar_logo.setVisibility(View.VISIBLE);
                 fragment = new Dashboard();
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
@@ -295,22 +299,26 @@ public class DrawerActivity extends AppCompatActivity {
 
                 break;
             case R.id.nav_order_his:
-
-
+                toolbar_text.setVisibility(View.VISIBLE);
+                toolbar_logo.setVisibility(View.GONE);
+                toolbar_text.setText("Order History");
                 fragment = new Frag_History();
                 FragmentManager fragmentManager1 = getSupportFragmentManager();
                 fragmentManager1.beginTransaction().replace(R.id.flContent, fragment).commit();
                 break;
             case R.id.nav_job_list:
-
+                toolbar_text.setVisibility(View.VISIBLE);
+                toolbar_logo.setVisibility(View.GONE);
+                toolbar_text.setText("Job List");
                 fragment = new Frag_JobList();
                 FragmentManager fragmentManager2 = getSupportFragmentManager();
                 fragmentManager2.beginTransaction().replace(R.id.flContent, fragment).commit();
                 break;
 
             case R.id.nav_cancel_job:
-
-
+                toolbar_text.setVisibility(View.VISIBLE);
+                toolbar_logo.setVisibility(View.GONE);
+                toolbar_text.setText("Cancel Job");
 
                 fragment = new Frag_Cancel_Job();
                 FragmentManager fragmentManager3 = getSupportFragmentManager();
@@ -319,8 +327,9 @@ public class DrawerActivity extends AppCompatActivity {
 
            case R.id.nav_earning:
 
-
-
+               toolbar_text.setVisibility(View.VISIBLE);
+               toolbar_logo.setVisibility(View.GONE);
+               toolbar_text.setText("Earning");
 
                 fragment = new Frag_Earning();
                 FragmentManager fragmentManager4 = getSupportFragmentManager();
@@ -328,9 +337,10 @@ public class DrawerActivity extends AppCompatActivity {
                 break;
 
            case R.id.nav_support:
+               toolbar_text.setVisibility(View.VISIBLE);
+               toolbar_logo.setVisibility(View.GONE);
 
-
-
+               toolbar_text.setText("Support");
                 fragment = new Frag_Support();
                 FragmentManager fragmentManager5 = getSupportFragmentManager();
                 fragmentManager5.beginTransaction().replace(R.id.flContent, fragment).commit();
